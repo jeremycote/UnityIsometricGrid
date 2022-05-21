@@ -1,0 +1,6 @@
+{
+    "name": "com.jeremy.isogrids",
+    "version": "0.0.1",
+    "description": "Easily implement isometric grids in Unity.",
+    "displayName": "IsoGrids"
+}
