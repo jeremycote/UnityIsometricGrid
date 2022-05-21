@@ -16,6 +16,8 @@ public class IsoGrid : MonoBehaviour
     [SerializeField] Vector3 firstAxis;
     [SerializeField] Vector3 secondAxis;
 
+    [SerializeField] Vector3 cellRotation;
+
     Node[,] nodes; // [width, height]
     GameObject nodesContainer;
 
@@ -57,9 +59,19 @@ public class IsoGrid : MonoBehaviour
             {
                 nodes[w, h] = Instantiate(nodePrefab, nodesContainer.transform). GetComponent<Node>();
                 nodes[w, h].transform.localPosition = firstScaledCell * w + secondScaledCell * h + firstOffset * w + secondOffset * h;
+                nodes[w, h].transform.localScale *= cellSize;
+                nodes[w, h].transform.Rotate(cellRotation);
             }
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (width > 0 && height > 0)
+        {
+            Gizmos.color = Color.blue;
 
+            Gizmos.DrawWireCube(transform.position, firstAxis * (width * (cellSize + gap) - gap) + secondAxis * (height * (cellSize + gap) - gap));
+        }
+    }
 }
